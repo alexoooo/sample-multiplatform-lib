@@ -9,7 +9,8 @@ object ModuleRegistry {
 
 
     init {
-        add(js("require('lib-js.js')"))
+        // TODO
+//        add(js("require('lib-lib-common.js')"))
 //        add(js("require('kzen-lib-common.js')"))
     }
 

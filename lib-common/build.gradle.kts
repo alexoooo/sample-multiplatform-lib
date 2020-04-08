@@ -59,8 +59,8 @@ kotlin {
                 implementation("ch.qos.logback:logback-classic:$logback_version")
                 implementation("org.jetbrains:kotlin-css-jvm:1.0.0-$kotlin_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$kotlinx_serialization_version")
-
                 implementation("org.jetbrains.kotlin:kotlin-reflect")
+                implementation("com.github.andrewoma.dexx:collection:0.7")
             }
         }
 
@@ -79,6 +79,7 @@ kotlin {
                 implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$kotlinx_serialization_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.3.5")
+                implementation(npm("immutable", "3.8.2"))
             }
         }
 

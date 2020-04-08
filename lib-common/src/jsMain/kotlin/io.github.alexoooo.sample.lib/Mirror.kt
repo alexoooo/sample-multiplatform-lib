@@ -77,16 +77,6 @@ actual object Mirror {
                 ?: continue
         }
         return null
-//        val webInstance = classForNameInModule(className, js("require('kzen-lib-js.js')"))
-//        if (webInstance != null) {
-////            console.log("found in web", webInstance)
-//            return webInstance
-//        }
-
-//        val commonInstance = classForNameInModule(className, js("require('kzen-lib-common.js')"))
-//        check(commonInstance != null, {"Unable to find: $className"})
-//
-//        return commonInstance
     }
 
 
@@ -137,7 +127,7 @@ actual object Mirror {
             "((\\/\\/.*\$)|(\\/\\*[\\s\\S]*?\\*\\/))",
             RegexOption.MULTILINE)
 
-        private val functionArgument = Regex("^\\s*(_?)(.+?)\\1\\s*$");
+        private val functionArgument = Regex("^\\s*(_?)(.+?)\\1\\s*$")
 
 
         fun stripComments(code: String): String =
@@ -145,7 +135,7 @@ actual object Mirror {
 
 
         fun argumentDeclaration(functionCode: String): String =
-            functionArguments.find(functionCode)!!.groupValues.get(1)
+            functionArguments.find(functionCode)!!.groupValues[1]
 
 
         fun splitArgumentList(argumentDeclaration: String): List<String> =
@@ -158,6 +148,6 @@ actual object Mirror {
 
 
         fun argumentName(argumentDeclaration: String): String =
-            functionArgument.find(argumentDeclaration)!!.groups.get(2)!!.value
+            functionArgument.find(argumentDeclaration)!!.groups[2]!!.value
     }
 }
