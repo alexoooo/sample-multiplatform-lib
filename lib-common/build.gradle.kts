@@ -59,6 +59,8 @@ kotlin {
                 implementation("ch.qos.logback:logback-classic:$logback_version")
                 implementation("org.jetbrains:kotlin-css-jvm:1.0.0-$kotlin_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$kotlinx_serialization_version")
+
+                implementation("org.jetbrains.kotlin:kotlin-reflect")
             }
         }
 
