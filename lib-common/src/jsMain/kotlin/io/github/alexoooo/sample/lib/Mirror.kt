@@ -25,7 +25,10 @@ actual object Mirror {
             ?: throw IllegalArgumentException("Not found: $className")
 
         @Suppress("UnsafeCastFromDynamic")
-        return newInstance(metadata.constructorFunction, constructorArguments)
+        return newInstance(
+            metadata.constructorFunction,
+            constructorArguments
+        )
     }
 
 
@@ -64,10 +67,14 @@ actual object Mirror {
     private fun reflectImpl(className: String): Metadata? {
         val constructorFunction = classForName(className) ?: return null
 
-        val constructorArgumentNames = functionArgumentNames(constructorFunction)
+        val constructorArgumentNames =
+            functionArgumentNames(constructorFunction)
 //        println("constructorArgumentNames: $constructorArgumentNames")
 
-        return Metadata(constructorFunction, constructorArgumentNames)
+        return Metadata(
+            constructorFunction,
+            constructorArgumentNames
+        )
     }
 
 
@@ -103,10 +110,12 @@ actual object Mirror {
         val withoutComments = JsParser.stripComments(code)
 //        println("withoutComments: $withoutComments")
 
-        val argumentDeclaration = JsParser.argumentDeclaration(withoutComments)
+        val argumentDeclaration =
+            JsParser.argumentDeclaration(withoutComments)
 //        println("argumentDeclaration: $argumentDeclaration")
 
-        val argumentList = JsParser.splitArgumentList(argumentDeclaration)
+        val argumentList =
+            JsParser.splitArgumentList(argumentDeclaration)
 //        println("argumentList: $argumentList - ${argumentList.size}")
 
         return argumentList.map { JsParser.argumentName(it) }
