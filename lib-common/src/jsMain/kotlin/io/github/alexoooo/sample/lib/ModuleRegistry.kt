@@ -2,10 +2,10 @@ package io.github.alexoooo.sample.lib
 
 
 object ModuleRegistry {
-    private val mutableModules = mutableListOf<dynamic>()
+    private val mutableModules = mutableSetOf<dynamic>()
 
     val modules: List<dynamic> =
-        mutableModules
+        mutableModules.toList()
 
 
     init {
