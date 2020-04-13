@@ -52,6 +52,8 @@ actual object Mirror {
 
 
     private fun reflect(className: String): Metadata? {
+//        println("#!@#@!#@! reflect - $className")
+
         if (cache.containsKey(className)) {
             return cache[className]
         }
@@ -79,7 +81,9 @@ actual object Mirror {
 
 
     private fun classForName(className: String): dynamic {
-        for (module in ModuleRegistry.modules) {
+//        println("#!@#@!#@! classForName - ${ModuleRegistry.modules().map { js("Object.keys(it)") }}")
+
+        for (module in ModuleRegistry.modules()) {
             return classForNameInModule(className, module)
                 ?: continue
         }
@@ -88,6 +92,8 @@ actual object Mirror {
 
 
     private fun classForNameInModule(className: String, module: dynamic): dynamic {
+//        println("~~~~ classForNameInModule - $className - ${js("Object.keys(module)")}")
+
         var next = module
 
         for (i in className.split('.')) {

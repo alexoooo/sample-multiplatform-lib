@@ -4,7 +4,7 @@ package io.github.alexoooo.sample.lib
 object ModuleRegistry {
     private val mutableModules = mutableSetOf<dynamic>()
 
-    val modules: List<dynamic> =
+    fun modules(): List<dynamic> =
         mutableModules.toList()
 
 
