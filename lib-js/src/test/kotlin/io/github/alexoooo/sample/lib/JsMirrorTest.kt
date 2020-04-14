@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 
-class MirrorTest {
+class JsMirrorTest {
     @Test
     fun detectExistenceOfJsTestClass() {
 //        @Suppress("UnsafeCastFromDynamic")
