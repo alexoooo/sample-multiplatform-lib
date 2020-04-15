@@ -22,7 +22,7 @@ class JvmMirrorTest {
                 as JvmMainModel
 
         assertEquals("foo", sampleModel.name)
-        assertEquals(42.0, sampleModel.number)
+        assertEquals(42.0, sampleModel.number, 0.0)
     }
 
 

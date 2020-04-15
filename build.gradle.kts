@@ -1,8 +1,8 @@
 plugins {
-    kotlin("multiplatform") version "1.3.71" apply false
-    kotlin("plugin.serialization") version "1.3.71" apply false
+    kotlin("multiplatform") version kotlinVersion apply false
+    kotlin("plugin.serialization") version kotlinVersion apply false
 }
 
 allprojects {
-    version = "0.0.1"
+    version = "0.0.2-SNAPSHOT"
 }
