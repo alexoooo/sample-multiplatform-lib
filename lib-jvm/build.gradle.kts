@@ -10,26 +10,13 @@ plugins {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-//    implementation("org.jetbrains:kotlin-css-jvm:1.0.0-$wrapperKotlinVersion")
+//    implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
 
     implementation(project(":lib-common"))
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-}
-
-
-tasks.withType<ProcessResources> {
-//    val jsProject = project(":lib-js")
-//    val task = jsProject.tasks.getByName("browserProductionWebpack") as KotlinWebpack
-//
-//    from(task.destinationDirectory!!) {
-//        into("public")
-//    }
-
-//    dependsOn(project(":lib-js").tasks.getByName("browserProductionWebpack"))
 }
 
 
@@ -44,8 +31,4 @@ tasks.withType<KotlinCompile> {
 tasks.getByName<Jar>("jar") {
     enabled = true
 }
-
-//tasks.getByName<BootJar>("bootJar") {
-//    archiveClassifier.set("boot")
-//}
 
