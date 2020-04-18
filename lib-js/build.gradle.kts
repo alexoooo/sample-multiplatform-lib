@@ -10,6 +10,7 @@ kotlin {
     }
 }
 
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
 
@@ -21,6 +22,7 @@ dependencies {
     implementation(npm("core-js", coreJsVersion))
     testImplementation("org.jetbrains.kotlin:kotlin-test-js")
 }
+
 
 run {
 //    project(":proj-jvm").afterEvaluate {

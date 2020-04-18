@@ -25,7 +25,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-//                implementation("org.jetbrains:kotlin-css:1.0.0-$wrapperKotlinVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
             }
         }
@@ -43,8 +42,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
-//                implementation("ch.qos.logback:logback-classic:$logbackVersion")
-//                implementation("org.jetbrains:kotlin-css-jvm:1.0.0-$wrapperKotlinVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("org.jetbrains.kotlin:kotlin-reflect")
                 implementation("com.github.andrewoma.dexx:collection:$dexxVersion")
