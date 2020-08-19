@@ -28,7 +28,16 @@ tasks.withType<KotlinCompile> {
 }
 
 
-tasks.getByName<Jar>("jar") {
-    enabled = true
-}
+// http://bastienpaul.fr/wordpress/2019/02/08/publish-a-kotlin-lib-with-gradle-kotlin-dsl/
+// https://stackoverflow.com/questions/52596968/build-source-jar-with-gradle-kotlin-dsl/
+tasks {
+    val sourcesJar by creating(Jar::class) {
+        archiveClassifier.set("sources")
+        from(sourceSets.getByName("main").allSource)
+    }
 
+    artifacts {
+        archives(sourcesJar)
+        archives(jar)
+    }
+}
