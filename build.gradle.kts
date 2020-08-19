@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    version = "0.2.0"
+    version = "0.2.1-SNAPSHOT"
 
     repositories {
         maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
