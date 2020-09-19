@@ -26,7 +26,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
 //                implementation(kotlin("stdlib-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
+//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
             }
         }
 
@@ -43,7 +43,8 @@ kotlin {
         val jvmMain by getting {
             dependencies {
 //                implementation(kotlin("stdlib-jdk8"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
                 implementation("org.jetbrains.kotlin:kotlin-reflect")
                 implementation("com.github.andrewoma.dexx:collection:$dexxVersion")
             }
@@ -61,8 +62,10 @@ kotlin {
         @Suppress("UNUSED_VARIABLE")
         val jsMain by getting {
             dependencies {
-//                implementation(kotlin("stdlib-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
+                // NB: seems to be required for IntelliJ IDEA 2020.2.2, but compiles from gradle without it
+                implementation(kotlin("stdlib-js"))
+
+//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
                 implementation(npm("immutable", immutaleJsVersion))
             }

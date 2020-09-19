@@ -5,7 +5,8 @@ const val coroutinesVersion = "1.3.9"
 //const val coroutinesVersion = "1.3.5"
 
 //const val serializationVersion = "0.20.0-$kotlinVersion"
-const val serializationVersion = "0.20.0"
+//const val serializationVersion = "0.20.0"
+const val serializationVersion = "1.0.0-RC"
 
 const val immutaleJsVersion = "3.8.2"
 const val dexxVersion = "0.7"
