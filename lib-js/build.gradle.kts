@@ -1,5 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.js")
+    `maven-publish`
 }
 
 
@@ -28,4 +29,17 @@ run {
 //    project(":proj-jvm").afterEvaluate {
 //        dependsOn project(":proj-jvm").tasks.getByName('prepareDevServer')
 //    }
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+
+    publications {
+        create<MavenPublication>("js") {
+//            println("Components: " + components.asMap.keys)
+            from(components["kotlin"])
+        }
+    }
 }

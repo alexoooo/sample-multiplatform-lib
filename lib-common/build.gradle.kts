@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
+    `maven-publish`
 }
 
 
@@ -24,7 +25,7 @@ kotlin {
         @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-common"))
+//                implementation(kotlin("stdlib-common"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
             }
         }
@@ -41,7 +42,7 @@ kotlin {
         @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-jdk8"))
+//                implementation(kotlin("stdlib-jdk8"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("org.jetbrains.kotlin:kotlin-reflect")
                 implementation("com.github.andrewoma.dexx:collection:$dexxVersion")
@@ -60,7 +61,7 @@ kotlin {
         @Suppress("UNUSED_VARIABLE")
         val jsMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+//                implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
                 implementation(npm("immutable", immutaleJsVersion))
@@ -72,6 +73,20 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-js"))
             }
+        }
+    }
+}
+
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+
+    publications {
+        create<MavenPublication>("common") {
+//            println("Components: " + components.asMap.keys)
+            from(components["kotlin"])
         }
     }
 }

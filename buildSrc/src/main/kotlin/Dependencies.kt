@@ -1,5 +1,5 @@
-const val kotlinVersion = "1.4.0"
-//const val kotlinVersion = "1.3.72"
+//const val kotlinVersion = "1.4.0"
+const val kotlinVersion = "1.4.10"
 
 const val coroutinesVersion = "1.3.9"
 //const val coroutinesVersion = "1.3.5"

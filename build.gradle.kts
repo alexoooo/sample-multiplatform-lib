@@ -4,6 +4,7 @@ plugins {
 }
 
 allprojects {
+    group = "io.github.alexoooo.sample.lib"
     version = "0.2.1-SNAPSHOT"
 
     repositories {

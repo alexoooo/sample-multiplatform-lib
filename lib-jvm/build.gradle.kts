@@ -1,10 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-//import org.springframework.boot.gradle.tasks.bundling.BootJar
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
 
 
@@ -23,21 +22,40 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+//        jvmTarget = "11"
+        jvmTarget = "13"
     }
 }
 
+// https://stackoverflow.com/questions/61432006/building-an-executable-jar-that-can-be-published-to-maven-local-repo-with-publi
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
 
 // http://bastienpaul.fr/wordpress/2019/02/08/publish-a-kotlin-lib-with-gradle-kotlin-dsl/
 // https://stackoverflow.com/questions/52596968/build-source-jar-with-gradle-kotlin-dsl/
-tasks {
-    val sourcesJar by creating(Jar::class) {
-        archiveClassifier.set("sources")
-        from(sourceSets.getByName("main").allSource)
+//tasks {
+//    val sourcesJar by creating(Jar::class) {
+//        archiveClassifier.set("sources")
+//        from(sourceSets.getByName("main").allSource)
+//    }
+//
+//    artifacts {
+//        archives(sourcesJar)
+//        archives(jar)
+//    }
+//}
+
+publishing {
+    repositories {
+        mavenLocal()
     }
 
-    artifacts {
-        archives(sourcesJar)
-        archives(jar)
+    publications {
+        create<MavenPublication>("jvm") {
+            from(components["java"])
+            artifact(sourcesJar.get())
+        }
     }
 }
