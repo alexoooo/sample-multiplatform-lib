@@ -23,10 +23,14 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
+
 //        jvmTarget = "11"
         jvmTarget = "13"
+
+//        useIR = true
     }
 }
+
 
 // https://stackoverflow.com/questions/61432006/building-an-executable-jar-that-can-be-published-to-maven-local-repo-with-publi
 val sourcesJar by tasks.registering(Jar::class) {

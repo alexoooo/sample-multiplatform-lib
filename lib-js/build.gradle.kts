@@ -5,10 +5,20 @@ plugins {
 
 
 kotlin {
-    target {
+//    js (IR) {
+//        useCommonJs()
+//        browser()
+//    }
+
+    js {
         useCommonJs()
         browser()
     }
+
+//    target {
+//        useCommonJs()
+//        browser()
+//    }
 }
 
 
