@@ -7,13 +7,18 @@ plugins {
 }
 
 
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-//    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+kotlin {
+    jvmToolchain {
+        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(jvmToolchainVersion))
+    }
+}
 
+
+dependencies {
     implementation(project(":lib-common"))
+
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
@@ -25,6 +30,11 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = jvmTargetVersion
     }
+}
+
+
+tasks.compileJava {
+    options.release.set(javaVersion)
 }
 
 

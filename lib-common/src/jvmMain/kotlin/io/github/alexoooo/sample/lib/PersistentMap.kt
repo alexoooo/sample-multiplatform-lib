@@ -5,7 +5,7 @@ import com.github.andrewoma.dexx.collection.TreeMap
 
 // https://stackoverflow.com/a/9313962/1941359
 // https://youtu.be/lcI-jmh5Cf0
-actual class PersistentMap<K, out V> private constructor(
+actual class PersistentMap<K: Any, out V: Any> private constructor(
     private val delegate: HashMap<K, Pair<V, Long>>,
     private val orderDelegate: TreeMap<Long, K>,
     private val insertCount: Long

@@ -5,7 +5,7 @@ import io.github.alexoooo.sample.lib.wrap.ImmutableOrderedMap
 import io.github.alexoooo.sample.lib.wrap.IteratorResult
 
 
-actual class PersistentMap<K, out V> private constructor(
+actual class PersistentMap<K: Any, out V: Any> private constructor(
     private val delegate: ImmutableOrderedMap<K, V>
 ):
     Map<K, V>,

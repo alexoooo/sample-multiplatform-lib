@@ -27,7 +27,7 @@ fun <T> List<T>.toPersistentList(): PersistentList<T> {
 
 
 //---------------------------------------------------------------------------------------------------------------------
-fun <K, V> persistentMapOf(vararg pairs: Pair<K, V>): PersistentMap<K, V> {
+fun <K: Any, V: Any> persistentMapOf(vararg pairs: Pair<K, V>): PersistentMap<K, V> {
     var builder = PersistentMap<K, V>()
     for ((k, v) in pairs) {
         builder = builder.put(k, v)
@@ -36,7 +36,7 @@ fun <K, V> persistentMapOf(vararg pairs: Pair<K, V>): PersistentMap<K, V> {
 }
 
 
-fun <K, V> Map<K, V>.toPersistentMap(): PersistentMap<K, V> {
+fun <K: Any, V: Any> Map<K, V>.toPersistentMap(): PersistentMap<K, V> {
     if (this is PersistentMap) {
         return this
     }
@@ -49,6 +49,6 @@ fun <K, V> Map<K, V>.toPersistentMap(): PersistentMap<K, V> {
 }
 
 
-fun <K, V> Iterable<Pair<K, V>>.toPersistentMap(): PersistentMap<K, V> {
+fun <K: Any, V: Any> Iterable<Pair<K, V>>.toPersistentMap(): PersistentMap<K, V> {
     return toMap().toPersistentMap()
 }

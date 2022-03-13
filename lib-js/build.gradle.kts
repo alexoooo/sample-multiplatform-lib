@@ -23,23 +23,16 @@ kotlin {
 
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
+    implementation(project(":lib-common"))
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
 
-//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$kotlinx_serialization_version")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
 
-    implementation(project(":lib-common"))
-
     implementation(npm("core-js", coreJsVersion))
-    testImplementation("org.jetbrains.kotlin:kotlin-test-js")
+//    testImplementation("org.jetbrains.kotlin:kotlin-test-js")
+    testImplementation(kotlin("test"))
 }
 
-
-run {
-//    project(":proj-jvm").afterEvaluate {
-//        dependsOn project(":proj-jvm").tasks.getByName('prepareDevServer')
-//    }
-}
 
 publishing {
     repositories {
