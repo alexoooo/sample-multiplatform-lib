@@ -1,36 +1,34 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+
 plugins {
-    id("org.jetbrains.kotlin.js")
+    kotlin("multiplatform")
     `maven-publish`
 }
 
 
 kotlin {
-//    js (IR) {
-//        useCommonJs()
-//        browser()
-//    }
-
     js {
         useCommonJs()
         browser()
     }
 
-//    target {
-//        useCommonJs()
-//        browser()
-//    }
-}
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                implementation(project(":lib-common"))
 
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
 
-dependencies {
-    implementation(project(":lib-common"))
-//    implementation("org.jetbrains.kotlin:kotlin-stdlib-js")
+                implementation(npm("core-js", coreJsVersion))
+            }
+        }
 
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
-
-    implementation(npm("core-js", coreJsVersion))
-//    testImplementation("org.jetbrains.kotlin:kotlin-test-js")
-    testImplementation(kotlin("test"))
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+    }
 }
 
 
@@ -39,10 +37,13 @@ publishing {
         mavenLocal()
     }
 
-    publications {
-        create<MavenPublication>("js") {
-//            println("Components: " + components.asMap.keys)
-            from(components["kotlin"])
-        }
-    }
+//    publications {
+//        create<MavenPublication>("js") {
+//            from(components["kotlin"])
+//        }
+//    }
 }
+
+
+// https://youtrack.jetbrains.com/issue/KT-52578/KJS-Gradle-KotlinNpmInstallTask-gradle-task-produces-unsolvable-warning-ignored-scripts-due-to-flag.
+yarn.ignoreScripts = false

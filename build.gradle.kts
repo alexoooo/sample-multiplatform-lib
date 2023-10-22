@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     group = "io.github.alexoooo.sample.lib"
-    version = "0.4.1-SNAPSHOT"
+    version = "0.5.0-SNAPSHOT"
 
     repositories {
         mavenCentral()

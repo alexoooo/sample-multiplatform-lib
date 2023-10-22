@@ -10,19 +10,18 @@ kotlin {
 
     js {
         browser {
-            testTask {
+            testTask(Action {
                 testLogging {
                     showExceptions = true
                     exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
                     showCauses = true
                     showStackTraces = true
                 }
-            }
+            })
         }
     }
 
     sourceSets {
-        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
             dependencies {
 //                implementation(kotlin("stdlib-common"))
@@ -30,7 +29,6 @@ kotlin {
             }
         }
 
-        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -39,7 +37,6 @@ kotlin {
         }
 
 
-        @Suppress("UNUSED_VARIABLE")
         val jvmMain by getting {
             dependencies {
 //                implementation(kotlin("stdlib-jdk8"))
@@ -50,7 +47,6 @@ kotlin {
             }
         }
 
-        @Suppress("UNUSED_VARIABLE")
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -59,7 +55,6 @@ kotlin {
         }
 
 
-        @Suppress("UNUSED_VARIABLE")
         val jsMain by getting {
             dependencies {
                 // NB: seems to be required for IntelliJ IDEA 2020.2.2, but compiles from gradle without it
@@ -71,7 +66,6 @@ kotlin {
             }
         }
 
-        @Suppress("UNUSED_VARIABLE")
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
@@ -86,10 +80,10 @@ publishing {
         mavenLocal()
     }
 
-    publications {
-        create<MavenPublication>("common") {
-//            println("Components: " + components.asMap.keys)
-            from(components["kotlin"])
-        }
-    }
+//    publications {
+//        create<MavenPublication>("common") {
+////            println("Components: " + components.asMap.keys)
+//            from(components["kotlin"])
+//        }
+//    }
 }
