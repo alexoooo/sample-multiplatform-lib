@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.targets.js.yarn.yarn
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -42,6 +43,13 @@ publishing {
 //            from(components["kotlin"])
 //        }
 //    }
+}
+
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xexpect-actual-classes"
+    }
 }
 
 

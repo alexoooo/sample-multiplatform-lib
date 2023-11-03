@@ -5,14 +5,14 @@ import io.github.alexoooo.sample.lib.wrap.ImmutableOrderedMap
 import io.github.alexoooo.sample.lib.wrap.IteratorResult
 
 
-actual class PersistentMap<K: Any, out V: Any> private constructor(
+class PersistentMapJs<K: Any, out V: Any> private constructor(
     private val delegate: ImmutableOrderedMap<K, V>
 ):
-    Map<K, V>,
+    PersistentMap<K, V>,
     AbstractMap<K, V>()
 {
     //-----------------------------------------------------------------------------------------------------------------
-    actual constructor(): this(ImmutableOrderedMap())
+    constructor(): this(ImmutableOrderedMap())
 
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -86,7 +86,6 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
                             return ! result!!.done
                         }
 
-                        @Suppress("UNCHECKED_CAST")
                         override fun next(): K {
                             check(hasNext())
                             val next = result!!.value
@@ -121,7 +120,6 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
                             return ! result!!.done
                         }
 
-                        @Suppress("UNCHECKED_CAST")
                         override fun next(): V {
                             check(hasNext())
                             val next = result!!.value
@@ -135,12 +133,12 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun put(key: K, value: @UnsafeVariance V): PersistentMap<K, V> {
-        return PersistentMap(delegate.set(key, value))
+    override fun put(key: K, value: @UnsafeVariance V): PersistentMapJs<K, V> {
+        return PersistentMapJs(delegate.set(key, value))
     }
 
 
-    actual fun putAll(from: Map<K, @UnsafeVariance V>): PersistentMap<K, V> {
+    override fun putAll(from: Map<K, @UnsafeVariance V>): PersistentMapJs<K, V> {
         var buffer = this
         for (e in from) {
             buffer = buffer.put(e.key, e.value)
@@ -149,20 +147,20 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
     }
 
 
-    actual fun remove(key: K): PersistentMap<K, V> {
-        return PersistentMap(delegate.delete(key))
+    override fun remove(key: K): PersistentMapJs<K, V> {
+        return PersistentMapJs(delegate.delete(key))
     }
 
 
     @Suppress("UNCHECKED_CAST")
-    actual fun insert(key: K, value: @UnsafeVariance V, position: Int): PersistentMap<K, V> {
+    override fun insert(key: K, value: @UnsafeVariance V, position: Int): PersistentMapJs<K, V> {
         check(key !in this)
 
         if (position == size) {
             return put(key, value)
         }
 
-        var builder = PersistentMap<K, V>()
+        var builder = PersistentMapJs<K, V>()
         val iterator = delegate.entries()
 
         var result: IteratorResult<Array<Any>> = iterator.next()
@@ -198,7 +196,7 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun equalsInOrder(other: PersistentMap<K, @UnsafeVariance V>): Boolean {
+    override fun equalsInOrder(other: PersistentMap<K, @UnsafeVariance V>): Boolean {
         if (size != other.size) {
             return false
         }

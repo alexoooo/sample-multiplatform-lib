@@ -9,13 +9,13 @@ import kotlin.test.assertTrue
 class PersistentMapTest {
     @Test
     fun initialEmptyShouldHaveSizeZero() {
-        assertEquals(0, PersistentMap<Any, Any>().size)
+        assertEquals(0, persistentMapOf<Any, Any>().size)
     }
 
 
     @Test
     fun singleShouldHaveSizeOne() {
-        val empty = PersistentMap<String, Int>()
+        val empty = persistentMapOf<String, Int>()
         val single = empty.put("foo", 1)
         assertNotEquals(empty, single)
         assertEquals(single.size, 1)
@@ -26,7 +26,7 @@ class PersistentMapTest {
 
     @Test
     fun putShouldOverride() {
-        val empty = PersistentMap<String, Int>()
+        val empty = persistentMapOf<String, Int>()
         val single = empty.put("foo", 1)
         val override = single.put("foo", 2)
         assertEquals(override.size, 1)
@@ -37,7 +37,7 @@ class PersistentMapTest {
 
     @Test
     fun removeShouldDelete() {
-        val empty = PersistentMap<String, Int>()
+        val empty = persistentMapOf<String, Int>()
         val single = empty.put("foo", 1)
         val removed = single.remove("foo")
         assertEquals(removed, empty)
@@ -46,7 +46,7 @@ class PersistentMapTest {
 
     @Test
     fun insertionOrderIsPreserved() {
-        var builder = PersistentMap<Int, Int>()
+        var builder = persistentMapOf<Int, Int>()
         for (i in 0 .. 100) {
             builder = builder.put(i, i)
         }

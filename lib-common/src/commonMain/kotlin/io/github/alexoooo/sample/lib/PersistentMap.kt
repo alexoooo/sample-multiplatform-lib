@@ -5,7 +5,7 @@ package io.github.alexoooo.sample.lib
 // - iteration in same order as keys were inserted
 // - replacing existing value maintains order
 // - equals / hashCode are unordered, see equalsInOrder
-expect class PersistentMap<K: Any, out V: Any>(): Map<K, V> {
+interface PersistentMap<K: Any, out V: Any>: Map<K, V> {
     fun put(key: K, value: @UnsafeVariance V): PersistentMap<K, V>
 
     fun putAll(from: Map<K, @UnsafeVariance V>): PersistentMap<K, V>

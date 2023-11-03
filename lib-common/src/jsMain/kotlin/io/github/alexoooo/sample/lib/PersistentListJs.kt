@@ -3,15 +3,14 @@ package io.github.alexoooo.sample.lib
 import io.github.alexoooo.sample.lib.wrap.ImmutableList
 
 
-actual class PersistentList<out E> private constructor(
+class PersistentListJs<out E> private constructor(
     private val delegate: ImmutableList<@UnsafeVariance E>
 ):
-    List<E>,
-    AbstractList<E>(),
-    RandomAccess
+    PersistentList<E>,
+    AbstractList<E>()
 {
     //-----------------------------------------------------------------------------------------------------------------
-    actual constructor(): this(ImmutableList())
+    constructor(): this(ImmutableList())
 
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -25,41 +24,41 @@ actual class PersistentList<out E> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun add(element: @UnsafeVariance E): PersistentList<E> {
-        return PersistentList(
+    override fun add(element: @UnsafeVariance E): PersistentListJs<E> {
+        return PersistentListJs(
             delegate.push(element))
     }
 
 
-    actual fun add(index: Int, element: @UnsafeVariance E): PersistentList<E> {
-        return PersistentList(
+    override fun add(index: Int, element: @UnsafeVariance E): PersistentListJs<E> {
+        return PersistentListJs(
             delegate.insert(index, element))
     }
 
 
-    actual fun addAll(elements: List<@UnsafeVariance E>): PersistentList<E> {
+    override fun addAll(elements: List<@UnsafeVariance E>): PersistentListJs<E> {
         var builder = delegate
         for (i in elements) {
             builder = builder.push(i)
         }
-        return PersistentList(builder)
+        return PersistentListJs(builder)
     }
 
 
-    actual fun set(index: Int, element: @UnsafeVariance E): PersistentList<E> {
-        return PersistentList(
+    override fun set(index: Int, element: @UnsafeVariance E): PersistentListJs<E> {
+        return PersistentListJs(
             delegate.set(index, element))
     }
 
 
-    actual fun removeAt(index: Int): PersistentList<E> {
-        return PersistentList(
+    override fun removeAt(index: Int): PersistentListJs<E> {
+        return PersistentListJs(
             delegate.remove(index))
     }
 
 
-    actual override fun subList(fromIndex: Int, toIndex: Int): PersistentList<E> {
-        return PersistentList(
+    override fun subList(fromIndex: Int, toIndex: Int): PersistentListJs<E> {
+        return PersistentListJs(
             delegate.slice(fromIndex, toIndex))
     }
 }

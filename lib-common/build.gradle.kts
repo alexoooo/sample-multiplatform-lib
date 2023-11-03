@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     id("kotlinx-serialization")
@@ -71,6 +73,13 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
+    }
+}
+
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xexpect-actual-classes"
     }
 }
 

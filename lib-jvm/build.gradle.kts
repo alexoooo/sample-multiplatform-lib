@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     jvmToolchain {
-        (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(jvmToolchainVersion))
+        languageVersion.set(JavaLanguageVersion.of(jvmToolchainVersion))
     }
 }
 
@@ -32,6 +32,11 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+//tasks.withType<KotlinCompile>().configureEach {
+//    kotlinOptions {
+//        freeCompilerArgs = freeCompilerArgs + "-Xexpect-actual-classes"
+//    }
+//}
 
 tasks.compileJava {
     options.release.set(javaVersion)

@@ -7,13 +7,13 @@ import kotlin.test.assertEquals
 class PersistentListTest {
     @Test
     fun initialEmptyShouldHaveSizeZero() {
-        assertEquals(0, PersistentList<String>().size)
+        assertEquals(0, persistentListOf<String>().size)
     }
 
 
     @Test
     fun singleElementShouldHaveSizeOne() {
-        val empty = PersistentList<String>()
+        val empty = persistentListOf<String>()
         val single = empty.add("foo")
         assertEquals(1, single.size)
         assertEquals("foo", single[0])
@@ -22,7 +22,7 @@ class PersistentListTest {
 
     @Test
     fun insertShouldShift() {
-        val empty = PersistentList<String>()
+        val empty = persistentListOf<String>()
         val single = empty.add("foo")
         val shifted = single.add(0, "bar")
         assertEquals(2, shifted.size)
@@ -33,7 +33,7 @@ class PersistentListTest {
 
     @Test
     fun setShouldReplace() {
-        val empty = PersistentList<String>()
+        val empty = persistentListOf<String>()
         val single = empty.add("foo")
         val replaced = single.set(0, "bar")
         assertEquals(1, replaced.size)
@@ -43,7 +43,7 @@ class PersistentListTest {
 
     @Test
     fun removeShouldUnshift() {
-        val empty = PersistentList<String>()
+        val empty = persistentListOf<String>()
         val twoElement = empty.add("foo").add("bar")
         val removed = twoElement.removeAt(0)
         assertEquals(1, removed.size)

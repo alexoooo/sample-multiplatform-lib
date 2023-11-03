@@ -2,10 +2,15 @@ package io.github.alexoooo.sample.lib
 
 
 //---------------------------------------------------------------------------------------------------------------------
+expect fun <T> persistentListOf(): PersistentList<T>
+expect fun <K: Any, V: Any>  persistentMapOf(): PersistentMap<K, V>
+
+
+//---------------------------------------------------------------------------------------------------------------------
 fun <T> persistentListOf(
-        vararg elements: T
+    vararg elements: T
 ): PersistentList<T> {
-    var builder = PersistentList<T>()
+    var builder = persistentListOf<T>()
     for (e in elements) {
         builder = builder.add(e)
     }
@@ -18,7 +23,7 @@ fun <T> List<T>.toPersistentList(): PersistentList<T> {
         return this
     }
 
-    var builder = PersistentList<T>()
+    var builder = persistentListOf<T>()
     forEach {
         builder = builder.add(it)
     }
@@ -28,7 +33,7 @@ fun <T> List<T>.toPersistentList(): PersistentList<T> {
 
 //---------------------------------------------------------------------------------------------------------------------
 fun <K: Any, V: Any> persistentMapOf(vararg pairs: Pair<K, V>): PersistentMap<K, V> {
-    var builder = PersistentMap<K, V>()
+    var builder = persistentMapOf<K, V>()
     for ((k, v) in pairs) {
         builder = builder.put(k, v)
     }
@@ -41,7 +46,7 @@ fun <K: Any, V: Any> Map<K, V>.toPersistentMap(): PersistentMap<K, V> {
         return this
     }
 
-    var builder = PersistentMap<K, V>()
+    var builder = persistentMapOf<K, V>()
     forEach {
         builder = builder.put(it.key, it.value)
     }

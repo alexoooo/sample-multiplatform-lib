@@ -3,16 +3,14 @@ package io.github.alexoooo.sample.lib
 import com.github.andrewoma.dexx.collection.Vector
 
 
-// TODO: investigate using https://github.com/lacuna/bifurcan
-actual class PersistentList<out E> private constructor(
+class PersistentListJvm<out E> private constructor(
     private val delegate: Vector<@UnsafeVariance E>
 ):
-    List<E>,
-    AbstractList<E>(),
-    RandomAccess
+    PersistentList<E>,
+    AbstractList<E>()
 {
     //-----------------------------------------------------------------------------------------------------------------
-    actual constructor() : this(Vector.empty<E>())
+    constructor() : this(Vector.empty<E>())
 
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -26,12 +24,12 @@ actual class PersistentList<out E> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun add(element: @UnsafeVariance E): PersistentList<E> {
-        return PersistentList(delegate.append(element))
+    override fun add(element: @UnsafeVariance E): PersistentListJvm<E> {
+        return PersistentListJvm(delegate.append(element))
     }
 
 
-    actual fun add(index: Int, element: @UnsafeVariance E): PersistentList<E> {
+    override fun add(index: Int, element: @UnsafeVariance E): PersistentListJvm<E> {
         var builder: Vector<E> = delegate.take(index)
 
         builder = builder.append(element)
@@ -40,28 +38,28 @@ actual class PersistentList<out E> private constructor(
             builder = builder.append(get(i))
         }
 
-        return PersistentList(builder)
+        return PersistentListJvm(builder)
     }
 
 
-    actual fun addAll(elements: List<@UnsafeVariance E>): PersistentList<E> {
+    override fun addAll(elements: List<@UnsafeVariance E>): PersistentListJvm<E> {
         var builder = delegate
         for (i in elements) {
             builder = builder.append(i)
         }
-        return PersistentList(builder)
+        return PersistentListJvm(builder)
     }
 
 
-    actual fun set(index: Int, element: @UnsafeVariance E): PersistentList<E> {
-        return PersistentList(
+    override fun set(index: Int, element: @UnsafeVariance E): PersistentListJvm<E> {
+        return PersistentListJvm(
             delegate.set(index, element))
     }
 
 
-    actual fun removeAt(index: Int): PersistentList<E> {
+    override fun removeAt(index: Int): PersistentListJvm<E> {
         if (index == 0) {
-            return PersistentList(delegate.drop(1))
+            return PersistentListJvm(delegate.drop(1))
         }
 
         // https://groups.google.com/forum/#!topic/scala-user/fZ1TTNgneW4
@@ -74,12 +72,12 @@ actual class PersistentList<out E> private constructor(
             }
             builder = builder.append(get(i))
         }
-        return PersistentList(builder)
+        return PersistentListJvm(builder)
     }
 
 
-    actual override fun subList(fromIndex: Int, toIndex: Int): PersistentList<E> {
-        return PersistentList(
+    override fun subList(fromIndex: Int, toIndex: Int): PersistentListJvm<E> {
+        return PersistentListJvm(
             delegate.range(fromIndex, true, toIndex, false))
     }
 }

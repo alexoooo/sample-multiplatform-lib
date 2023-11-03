@@ -5,16 +5,16 @@ import com.github.andrewoma.dexx.collection.TreeMap
 
 // https://stackoverflow.com/a/9313962/1941359
 // https://youtu.be/lcI-jmh5Cf0
-actual class PersistentMap<K: Any, out V: Any> private constructor(
+class PersistentMapJvm<K: Any, out V: Any> private constructor(
     private val delegate: HashMap<K, Pair<V, Long>>,
     private val orderDelegate: TreeMap<Long, K>,
     private val insertCount: Long
 ):
-    Map<K, V>,
+    PersistentMap<K, V>,
     AbstractMap<K, V>()
 {
     //-----------------------------------------------------------------------------------------------------------------
-    actual constructor(): this(
+    constructor(): this(
         HashMap.empty<K, Pair<V, Long>>(),
         TreeMap<Long, K>(),
         0
@@ -102,18 +102,18 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun put(key: K, value: @UnsafeVariance V): PersistentMap<K, V> {
+    override fun put(key: K, value: @UnsafeVariance V): PersistentMapJvm<K, V> {
         val existing = delegate[key]
 
         return if (existing == null) {
-            PersistentMap(
+            PersistentMapJvm(
                 delegate.put(key, value to insertCount),
                 orderDelegate.put(insertCount, key),
                 insertCount + 1
             )
         }
         else {
-            PersistentMap(
+            PersistentMapJvm(
                 delegate.put(key, value to existing.second),
                 orderDelegate,
                 insertCount)
@@ -121,7 +121,7 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
     }
 
 
-    actual fun putAll(from: Map<K, @UnsafeVariance V>): PersistentMap<K, V> {
+    override fun putAll(from: Map<K, @UnsafeVariance V>): PersistentMapJvm<K, V> {
         var buffer = this
         for (e in from) {
             buffer = buffer.put(e.key, e.value)
@@ -130,29 +130,29 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
     }
 
 
-    actual fun remove(key: K): PersistentMap<K, V> {
+    override fun remove(key: K): PersistentMapJvm<K, V> {
         val existing = delegate[key]
             ?: return this
 
-        return PersistentMap(
+        return PersistentMapJvm(
             delegate.remove(key),
             orderDelegate.remove(existing.second),
             insertCount)
     }
 
 
-    actual fun insert(
+    override fun insert(
         key: K,
         value: @UnsafeVariance V,
         position: Int
-    ): PersistentMap<K, V> {
+    ): PersistentMapJvm<K, V> {
         check(key !in this)
 
         if (position == size) {
             return put(key, value)
         }
 
-        var builder = PersistentMap<K, V>()
+        var builder = PersistentMapJvm<K, V>()
         val iterator = orderDelegate.values().iterator()
 
         var nextIndex = 0
@@ -180,13 +180,13 @@ actual class PersistentMap<K: Any, out V: Any> private constructor(
 
 
     //-----------------------------------------------------------------------------------------------------------------
-    actual fun equalsInOrder(other: PersistentMap<K, @UnsafeVariance V>): Boolean {
+    override fun equalsInOrder(other: PersistentMap<K, @UnsafeVariance V>): Boolean {
         if (size != other.size) {
             return false
         }
 
         val orderIterator = orderDelegate.values().iterator()
-        val otherOrderIterator = other.orderDelegate.values().iterator()
+        val otherOrderIterator = other.keys.iterator()
 
         while (orderIterator.hasNext()) {
             val nextKey = orderIterator.next()
