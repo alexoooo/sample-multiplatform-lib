@@ -14,7 +14,7 @@ kotlin {
     }
 
     sourceSets {
-        val jsMain by getting {
+        jsMain {
             dependencies {
                 implementation(project(":lib-common"))
 
@@ -24,7 +24,7 @@ kotlin {
             }
         }
 
-        val jsTest by getting {
+        jsTest {
             dependencies {
                 implementation(kotlin("test"))
             }
@@ -36,19 +36,6 @@ kotlin {
 publishing {
     repositories {
         mavenLocal()
-    }
-
-//    publications {
-//        create<MavenPublication>("js") {
-//            from(components["kotlin"])
-//        }
-//    }
-}
-
-
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-Xexpect-actual-classes"
     }
 }
 

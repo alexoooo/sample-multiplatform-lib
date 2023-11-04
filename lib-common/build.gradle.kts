@@ -24,14 +24,9 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-//                implementation(kotlin("stdlib-common"))
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
-            }
-        }
+        commonMain {}
 
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -39,17 +34,15 @@ kotlin {
         }
 
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
-//                implementation(kotlin("stdlib-jdk8"))
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
                 implementation("org.jetbrains.kotlin:kotlin-reflect")
                 implementation("com.github.andrewoma.dexx:collection:$dexxVersion")
             }
         }
 
-        val jvmTest by getting {
+        jvmTest {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
@@ -57,18 +50,14 @@ kotlin {
         }
 
 
-        val jsMain by getting {
+        jsMain {
             dependencies {
-                // NB: seems to be required for IntelliJ IDEA 2020.2.2, but compiles from gradle without it
-                implementation(kotlin("stdlib-js"))
-
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutinesVersion")
                 implementation(npm("immutable", immutaleJsVersion))
             }
         }
 
-        val jsTest by getting {
+        jsTest {
             dependencies {
                 implementation(kotlin("test-js"))
             }
@@ -77,22 +66,8 @@ kotlin {
 }
 
 
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + "-Xexpect-actual-classes"
-    }
-}
-
-
 publishing {
     repositories {
         mavenLocal()
     }
-
-//    publications {
-//        create<MavenPublication>("common") {
-////            println("Components: " + components.asMap.keys)
-//            from(components["kotlin"])
-//        }
-//    }
 }
